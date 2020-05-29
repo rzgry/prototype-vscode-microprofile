@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-// VSCode Quarkus Tools commands
+// VSCode MicroProfile Tools commands
 export namespace VSCodeCommands {
   export const MICROPROFILE_WELCOME = 'microprofileTools.welcome';
-}
-
-// Constants related to project generation
-export const enum BuildToolName {
-  Maven = 'Maven',
-  Gradle = 'Gradle'
 }
 
 // MicroProfile language server request and notifications

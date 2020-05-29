@@ -98,7 +98,7 @@ function registerVSCodeCommands(context: ExtensionContext) {
   }));
 
   /**
-   * Register standard LSP commands
+   * Register standard LSP commands which are referenced by the MicroProfile LS
    */
   context.subscriptions.push(registerConfigurationUpdateCommand());
   context.subscriptions.push(registerOpenURICommand());
