@@ -16,9 +16,6 @@
 
 // VSCode Quarkus Tools commands
 export namespace VSCodeCommands {
-  export const CREATE_PROJECT = 'quarkusTools.createProject';
-  export const ADD_EXTENSIONS = 'quarkusTools.addExtension';
-  export const DEBUG_QUARKUS_PROJECT = 'quarkusTools.debugQuarkusProject';
   export const QUARKUS_WELCOME = 'quarkusTools.welcome';
 }
 

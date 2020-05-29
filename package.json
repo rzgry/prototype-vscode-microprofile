@@ -31,7 +31,6 @@
     "starter"
   ],
   "activationEvents": [
-    "onCommand:quarkusTools.createProject",
     "onCommand:quarkusTools.welcome",
     "workspaceContains:**/src/main/resources/application.properties",
     "workspaceContains:**src/main/resources/META-INF/microprofile-config.properties",
@@ -74,18 +73,6 @@
       }
     ],
     "commands": [
-      {
-        "command": "quarkusTools.createProject",
-        "title": "Quarkus: Generate a Quarkus project"
-      },
-      {
-        "command": "quarkusTools.addExtension",
-        "title": "Quarkus: Add extensions to current project"
-      },
-      {
-        "command": "quarkusTools.debugQuarkusProject",
-        "title": "Quarkus: Debug current Quarkus project"
-      },
       {
         "command": "quarkusTools.welcome",
         "title": "Quarkus: Welcome"
@@ -226,18 +213,6 @@
           "scope": "window"
         }
       }
-    },
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "quarkusTools.addExtension",
-          "when": "quarkusProjectExists"
-        },
-        {
-          "command": "quarkusTools.debugQuarkusProject",
-          "when": "quarkusProjectExists"
-        }
-      ]
     },
     "grammars": [
       {
