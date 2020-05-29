@@ -1,7 +1,7 @@
 {
-  "name": "vscode-quarkus",
-  "displayName": "Quarkus",
-  "description": "Quarkus Tools for Visual Studio Code",
+  "name": "vscode-microprofile",
+  "displayName": "MicroProfile Language Support",
+  "description": "MicroProfile Language Support for Visual Studio Code",
   "version": "1.6.0",
   "icon": "icons/logo.png",
   "author": "Red Hat",
@@ -39,11 +39,7 @@
     "workspaceContains:**/src/main/resources/application.yml",
     "onLanguage:microprofile-properties",
     "onLanguage:quarkus-properties",
-    "onLanguage:java",
-    "onLanguage:qute-html",
-    "onLanguage:qute-json",
-    "onLanguage:qute-yaml",
-    "onLanguage:qute-txt"
+    "onLanguage:java"
   ],
   "main": "./dist/extension",
   "extensionDependencies": [
@@ -75,46 +71,6 @@
           "application.properties"
         ],
         "configuration": "./language-support/properties-support/language-configuration.json"
-      },
-      {
-        "id": "qute-html",
-        "aliases": [
-          "Qute HTML"
-        ],
-        "extensions": [
-          "qute.html"
-        ],
-        "configuration": "./language-support/qute/language-configuration.json"
-      },
-      {
-        "id": "qute-json",
-        "aliases": [
-          "Qute JSON"
-        ],
-        "extensions": [
-          "qute.json"
-        ],
-        "configuration": "./language-support/qute/language-configuration.json"
-      },
-      {
-        "id": "qute-yaml",
-        "aliases": [
-          "Qute YAML"
-        ],
-        "extensions": [
-          "qute.yaml"
-        ],
-        "configuration": "./language-support/qute/language-configuration.json"
-      },
-      {
-        "id": "qute-txt",
-        "aliases": [
-          "Qute Text"
-        ],
-        "extensions": [
-          "qute.txt"
-        ],
-        "configuration": "./language-support/qute/language-configuration.json"
       }
     ],
     "commands": [
@@ -136,7 +92,7 @@
       }
     ],
     "configuration": {
-      "title": "Quarkus Tools",
+      "title": "Quarkus f",
       "properties": {
         "quarkus.tools.trace.server": {
           "type": "string",
@@ -293,30 +249,6 @@
         "language": "quarkus-properties",
         "scopeName": "source.java-properties",
         "path": "./language-support/properties-support/java-properties.tmLanguage.json"
-      },
-      {
-        "language": "qute-html",
-        "scopeName": "text.html.qute",
-        "path": "./language-support/qute/qute-html.tmLanguage.json"
-      },
-      {
-        "language": "qute-json",
-        "scopeName": "source.json.qute",
-        "path": "./language-support/qute/qute-json.tmLanguage.json"
-      },
-      {
-        "language": "qute-yaml",
-        "scopeName": "source.yaml.qute",
-        "path": "./language-support/qute/qute-yaml.tmLanguage.json"
-      },
-      {
-        "language": "qute-txt",
-        "scopeName": "text.qute",
-        "path": "./language-support/qute/qute-txt.tmLanguage.json"
-      },
-      {
-        "scopeName": "grammar.qute",
-        "path": "./language-support/qute/qute.tmLanguage.json"
       }
     ]
   },

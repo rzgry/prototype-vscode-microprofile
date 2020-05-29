@@ -16,35 +16,20 @@ const rename = require('gulp-rename');
 const cp = require('child_process');
 
 const microprofileServerName = 'com.redhat.microprofile.ls-uber.jar';
-const extensions = ['com.redhat.microprofile.jdt.core', 'com.redhat.microprofile.jdt.quarkus'];
+const extensions = ['com.redhat.microprofile.jdt.core'];
 const microprofileServerDir = '../quarkus-ls/microprofile.ls/com.redhat.microprofile.ls';
 const extensionDir = '../quarkus-ls/microprofile.jdt';
 
-const quarkusServerExtGlob = 'com.redhat.quarkus.ls!(*-sources).jar';
-const quarkusServerExtDir = '../quarkus-ls/quarkus.ls.ext/com.redhat.quarkus.ls'
 
-gulp.task('buildMicroProfileServer', (done) => {
-  cp.execSync(mvnw() + ' clean install -DskipTests', { cwd: microprofileServerDir , stdio: 'inherit' });
+gulp.task('buildServer', (done) => {
+  cp.execSync(mvnw() + ' clean install -DskipTests', { cwd: microprofileServerDir, stdio: 'inherit' });
   gulp.src(microprofileServerDir + '/target/' + microprofileServerName)
     .pipe(gulp.dest('./server'));
   done();
 });
 
-gulp.task('buildQuarkusServerExt', (done) => {
-  cp.execSync(mvnw() + ' clean verify -DskipTests', { cwd: quarkusServerExtDir , stdio: 'inherit' });
-  gulp.src(quarkusServerExtDir + '/target/' + quarkusServerExtGlob)
-    .pipe(gulp.dest('./server'));
-  // copy over any dependencies not provided by mp-ls 
-  // dependencies are copied into /target/lib by the maven-dependency-plugin
-  gulp.src(quarkusServerExtDir + '/target/lib/*.jar')
-    .pipe(gulp.dest('./server'));
-  done();
-});
-
-gulp.task('buildServer', gulp.series(['buildMicroProfileServer', 'buildQuarkusServerExt']))
-
 gulp.task('buildExtension', (done) => {
-  cp.execSync(mvnw() + ' -pl "' + extensions.join(',') + '" clean verify -DskipTests' , { cwd: extensionDir, stdio: 'inherit' });
+  cp.execSync(mvnw() + ' -pl "' + extensions.join(',') + '" clean verify -DskipTests', { cwd: extensionDir, stdio: 'inherit' });
   extensions.forEach(extension => {
     gulp.src(extensionDir + '/' + extension + '/target/' + extension + '-*.jar')
       .pipe(rename(extension + '.jar'))
@@ -56,9 +41,9 @@ gulp.task('buildExtension', (done) => {
 gulp.task('build', gulp.series('buildServer', 'buildExtension'));
 
 function mvnw() {
-	return isWin() ? 'mvnw.cmd' : './mvnw';
+  return isWin() ? 'mvnw.cmd' : './mvnw';
 }
 
 function isWin() {
-	return /^win/.test(process.platform);
+  return /^win/.test(process.platform);
 }
