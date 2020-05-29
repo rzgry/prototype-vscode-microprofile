@@ -19,14 +19,14 @@ import { Disposable } from 'vscode-languageclient';
 import { ProjectLabel, ProjectLabelInfo } from './definitions/ProjectLabelInfo';
 import { MicroProfilePropertiesChangeEvent, MicroProfilePropertiesScopeEnum } from './yaml/YamlSchema';
 
-export class QuarkusProjectListener {
-  private quarkusProjectsCache: ProjectLabelInfo[];
+export class MicroProfileProjectListener {
+  private microprofileProjectsCache: ProjectLabelInfo[];
 
   constructor() {
-    this.quarkusProjectsCache = [];
+    this.microprofileProjectsCache = [];
   }
 
-  public getQuarkusProjectListener(): Disposable {
+  public getMicroProfileProjectListener(): Disposable {
     const listener: Disposable = workspace.onDidChangeWorkspaceFolders(async () => {
       await new Promise((res => setTimeout(res, 100)));
       await this.updateCacheAndContext();
@@ -35,7 +35,7 @@ export class QuarkusProjectListener {
     return {
       dispose: () => {
         listener.dispose();
-        this.setQuarkusProjectExistsContext(false);
+        this.setMicroProfileProjectExistsContext(false);
       }
     };
   }
@@ -46,28 +46,28 @@ export class QuarkusProjectListener {
     }
 
     const projectURI: string = event.projectURIs[0];
-    if ((this.quarkusProjectsCache.length === 0 || this.quarkusProjectsCache.map((info) => info.uri).includes(projectURI)) &&
-        event.type.includes(MicroProfilePropertiesScopeEnum.dependencies)) {
+    if ((this.microprofileProjectsCache.length === 0 || this.microprofileProjectsCache.map((info) => info.uri).includes(projectURI)) &&
+      event.type.includes(MicroProfilePropertiesScopeEnum.dependencies)) {
       await this.updateCacheAndContext();
     }
   }
 
   /**
-   * Updates the `quarkusProjectsCache` and `quarkusProjectExists` context
+   * Updates the `quarkusProjectsCache` and `microprofileProjectExists` context
    */
   public async updateCacheAndContext(): Promise<void> {
-    this.quarkusProjectsCache = await getWorkspaceProjectLabels(ProjectLabel.Quarkus);
-    await this.setQuarkusProjectExistsContext(this.quarkusProjectsCache.length > 0);
+    this.microprofileProjectsCache = await getWorkspaceProjectLabels(ProjectLabel.MicroProfile);
+    await this.setMicroProfileProjectExistsContext(this.microprofileProjectsCache.length > 0);
   }
 
   /**
    * Sets the `quarkusProjectExists` context to `true` if current workspace
    * contains a Quarkus project. Sets to `false` otherwise.
    */
-  private async setQuarkusProjectExistsContext(value: boolean): Promise<void> {
+  private async setMicroProfileProjectExistsContext(value: boolean): Promise<void> {
     await commands.executeCommand('setContext', 'quarkusProjectExists', value);
   }
 }
 
-const quarkusProjectListener: QuarkusProjectListener = new QuarkusProjectListener();
-export default quarkusProjectListener;
+const microprofileProjectListener: MicroProfileProjectListener = new MicroProfileProjectListener();
+export default microprofileProjectListener;

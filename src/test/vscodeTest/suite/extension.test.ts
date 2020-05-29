@@ -14,10 +14,10 @@ describe('VS Code extension tests', () => {
   it('should have Quarkus commands as activation events', () => {
     const packageJSON = vscode.extensions.getExtension('redhat.vscode-quarkus').packageJSON;
     const activationCommands = packageJSON.activationEvents.filter((s) => s.startsWith('onCommand:'))
-        .map((s) => s.substring('onCommand:'.length));
+      .map((s) => s.substring('onCommand:'.length));
     const QUARKUS_ACTIVATION_COMMANDS: string[] = [
-      VSCodeCommands.CREATE_PROJECT,
-      VSCodeCommands.QUARKUS_WELCOME
+      // VSCodeCommands.CREATE_PROJECT,
+      VSCodeCommands.MICROPROFILE_WELCOME
     ];
 
     expect(activationCommands).to.have.members(QUARKUS_ACTIVATION_COMMANDS);

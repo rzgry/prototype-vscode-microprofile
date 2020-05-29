@@ -16,7 +16,7 @@
 
 // VSCode Quarkus Tools commands
 export namespace VSCodeCommands {
-  export const QUARKUS_WELCOME = 'quarkusTools.welcome';
+  export const MICROPROFILE_WELCOME = 'microprofileTools.welcome';
 }
 
 // Constants related to project generation
@@ -41,15 +41,3 @@ export namespace MicroProfileLS {
 }
 
 export const WORKSPACE_LABELS_COMMAND_ID = 'microprofile/java/workspaceLabels';
-
-export const DEFAULT_API_URL: string = 'https://code.quarkus.io/api';
-export const DEFAULT_BUILD_TOOL: BuildToolName = BuildToolName.Maven;
-export const DEFAULT_GROUP_ID: string = 'org.acme';
-export const DEFAULT_ARTIFACT_ID: string = 'quarkus-getting-started';
-export const DEFAULT_PROJECT_VERSION: string = '1.0.0-SNAPSHOT';
-export const DEFAULT_PACKAGE_NAME: string = DEFAULT_GROUP_ID;
-export const DEFAULT_RESOURCE_NAME: string = 'GreetingResource';
-export const INPUT_TITLE: string = 'Quarkus Tools';
-
-// Quarkus extension default groupId
-export const QUARKUS_GROUP_ID: string = 'io.quarkus';

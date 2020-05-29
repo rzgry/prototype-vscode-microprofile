@@ -16,7 +16,7 @@
 import * as ejs from 'ejs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { QuarkusConfig } from "../QuarkusConfig";
+import { MicroProfileConfig } from "../MicroProfileConfig";
 
 export class WelcomeWebview {
 
@@ -74,7 +74,7 @@ export class WelcomeWebview {
 
     const data = {
       appName: vscode.env.appName,
-      checkboxValue: QuarkusConfig.getAlwaysShowWelcomePage(),
+      checkboxValue: MicroProfileConfig.getAlwaysShowWelcomePage(),
       cssUri: this.getCssUri(),
       cspSource: this._panel.webview.cspSource,
       jsUri: this.getJsUri(),
@@ -118,7 +118,7 @@ export class WelcomeWebview {
       message => {
         if (message.command === 'checkbox-changed') {
           const checkboxValue: boolean = message.newValue;
-          QuarkusConfig.setAlwaysShowWelcomePage(checkboxValue);
+          MicroProfileConfig.setAlwaysShowWelcomePage(checkboxValue);
         }
       },
       undefined,
@@ -128,7 +128,7 @@ export class WelcomeWebview {
 
   private setConfigListener() {
     vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {
-      if (event.affectsConfiguration(QuarkusConfig.ALWAYS_SHOW_WELCOME_PAGE) && WelcomeWebview.currentPanel) {
+      if (event.affectsConfiguration(MicroProfileConfig.ALWAYS_SHOW_WELCOME_PAGE) && WelcomeWebview.currentPanel) {
         this.setPanelHtml();
       }
     },

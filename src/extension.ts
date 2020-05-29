@@ -18,22 +18,20 @@ import * as requirements from './languageServer/requirements';
 import { VSCodeCommands, MicroProfileLS } from './definitions/constants';
 import { DidChangeConfigurationNotification, LanguageClientOptions, LanguageClient } from 'vscode-languageclient';
 import { ExtensionContext, commands, window, workspace } from 'vscode';
-import { QuarkusContext } from './QuarkusContext';
-import quarkusProjectListener from './QuarkusProjectListener';
+import microprofileProjectListener from './QuarkusProjectListener';
 import { prepareExecutable } from './languageServer/javaServerStarter';
 import { WelcomeWebview } from './webviews/WelcomeWebview';
-import { QuarkusConfig } from './QuarkusConfig';
+import { MicroProfileConfig } from './MicroProfileConfig';
 import { registerConfigurationUpdateCommand, registerOpenURICommand, CommandKind } from './lsp-commands';
 import { registerYamlSchemaSupport, MicroProfilePropertiesChangeEvent } from './yaml/YamlSchema';
 
 let languageClient: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  QuarkusContext.setContext(context);
   displayWelcomePageIfNeeded(context);
-  quarkusProjectListener.updateCacheAndContext();
+  microprofileProjectListener.updateCacheAndContext();
 
-  context.subscriptions.push(quarkusProjectListener.getQuarkusProjectListener());
+  context.subscriptions.push(microprofileProjectListener.getMicroProfileProjectListener());
 
   /**
    * Register Yaml Schema support to manage application.yaml
@@ -62,7 +60,7 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(commands.registerCommand(MicroProfileLS.PROPERTIES_CHANGED_NOTIFICATION, (event: MicroProfilePropertiesChangeEvent) => {
       languageClient.sendNotification(MicroProfileLS.PROPERTIES_CHANGED_NOTIFICATION, event);
       yamlSchemaCache.then(cache => { if (cache) cache.evict(event); });
-      quarkusProjectListener.propertiesChange(event);
+      microprofileProjectListener.propertiesChange(event);
     }));
   }).catch((error) => {
     window.showErrorMessage(error.message, error.label).then((selection) => {
@@ -85,7 +83,7 @@ export function deactivate() {
 }
 
 function displayWelcomePageIfNeeded(context: ExtensionContext): void {
-  if (QuarkusConfig.getAlwaysShowWelcomePage()) {
+  if (MicroProfileConfig.getAlwaysShowWelcomePage()) {
     WelcomeWebview.createOrShow(context);
   }
 }
@@ -95,7 +93,7 @@ function registerVSCodeCommands(context: ExtensionContext) {
   /**
    * Command for displaying welcome page
    */
-  context.subscriptions.push(commands.registerCommand(VSCodeCommands.QUARKUS_WELCOME, () => {
+  context.subscriptions.push(commands.registerCommand(VSCodeCommands.MICROPROFILE_WELCOME, () => {
     WelcomeWebview.createOrShow(context);
   }));
 
@@ -116,7 +114,7 @@ function connectToLS(context: ExtensionContext) {
       ],
       // wrap with key 'settings' so it can be handled same a DidChangeConfiguration
       initializationOptions: {
-        settings: getQuarkusSettings(),
+        settings: getVSCodeMicroProfileSettings(),
         extendedClientCapabilities: {
           commands: {
             commandsKind: {
@@ -130,46 +128,44 @@ function connectToLS(context: ExtensionContext) {
       },
       synchronize: {
         // preferences starting with these will trigger didChangeConfiguration
-        configurationSection: ['quarkus', '[quarkus]']
+        configurationSection: ['microprofile', '[microprofile]']
       },
       middleware: {
         workspace: {
           didChangeConfiguration: () => {
-            languageClient.sendNotification(DidChangeConfigurationNotification.type, { settings: getQuarkusSettings() });
+            languageClient.sendNotification(DidChangeConfigurationNotification.type, { settings: getVSCodeMicroProfileSettings() });
           }
         }
       }
     };
 
     const serverOptions = prepareExecutable(requirements);
-    languageClient = new LanguageClient('quarkus.tools', 'Quarkus Tools', serverOptions, clientOptions);
+    languageClient = new LanguageClient('microprofile.tools', 'MicroProfile Tools', serverOptions, clientOptions);
     context.subscriptions.push(languageClient.start());
     return languageClient.onReady();
   });
 
   /**
-   * Returns a json object with key 'quarkus' and a json object value that
-   * holds all quarkus. settings.
+   * Returns a json object with key 'microprofile' and a json object value that
+   * holds all microprofile. settings.
    *
    * Returns: {
-   *            'quarkus': {...}
+   *            'microprofile': {...}
    *          }
    */
-  function getQuarkusSettings(): JSON {
-    const configQuarkus = workspace.getConfiguration().get('quarkus');
-    let quarkus;
-    if (!configQuarkus) { // Set default preferences if not provided
-      const defaultValue =
-      {
-        quarkus: {
-
-        }
+  function getVSCodeMicroProfileSettings(): JSON {
+    const configMicroProfile = workspace.getConfiguration().get('microprofile');
+    let settings;
+    if (!configMicroProfile) { // Set default preferences if not provided
+      const defaultValue = {
+        microprofile: {}
       };
-      quarkus = defaultValue;
+      settings = defaultValue;
     } else {
-      const x = JSON.stringify(configQuarkus); // configQuarkus is not a JSON type
-      quarkus = { quarkus: JSON.parse(x) };
+      const x = JSON.stringify(configMicroProfile); // configQuarkus is not a JSON type
+      settings = { microprofile: JSON.parse(x) };
     }
-    return quarkus;
+
+    return settings;
   }
 }

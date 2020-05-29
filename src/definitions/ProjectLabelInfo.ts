@@ -27,7 +27,7 @@ export class ProjectLabelInfo {
     this.labels = labels;
   }
 
-  public getBuildSupport(): BuildSupport|undefined {
+  public getBuildSupport(): BuildSupport | undefined {
     if (this.isGradleProject()) {
       return new GradleBuildSupport();
     }
@@ -35,10 +35,6 @@ export class ProjectLabelInfo {
       return new MavenBuildSupport();
     }
     return undefined;
-  }
-
-  public isQuarkusProject(): boolean {
-    return this.labels.includes(ProjectLabel.Quarkus);
   }
 
   public isMavenProject(): boolean {
@@ -54,7 +50,7 @@ export class ProjectLabelInfo {
   }
 
   public static async getWorkspaceProjectLabelInfo(): Promise<ProjectLabelInfo[]> {
-    const projectLabels: {uri: string, labels: ProjectLabel[]}[] = await commands.executeCommand("java.execute.workspaceCommand", WORKSPACE_LABELS_COMMAND_ID);
+    const projectLabels: { uri: string, labels: ProjectLabel[] }[] = await commands.executeCommand("java.execute.workspaceCommand", WORKSPACE_LABELS_COMMAND_ID);
     return projectLabels.map((p) => {
       return new ProjectLabelInfo(p.uri, p.labels);
     });
@@ -63,7 +59,6 @@ export class ProjectLabelInfo {
 
 export const enum ProjectLabel {
   MicroProfile = 'microprofile',
-  Quarkus = 'quarkus',
   Maven = 'maven',
   Gradle = 'gradle'
 }
