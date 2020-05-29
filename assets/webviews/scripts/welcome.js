@@ -2,7 +2,7 @@ const vscode = acquireVsCodeApi();
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-  const checkbox = document.getElementById('showWhenUsingQuarkusTools');
+  const checkbox = document.getElementById('showWhenUsingMicroProfileTools');
 
   checkbox.addEventListener('click', () => {
     vscode.postMessage({

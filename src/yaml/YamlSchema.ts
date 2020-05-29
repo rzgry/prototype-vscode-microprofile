@@ -87,7 +87,7 @@ export class YamlSchemaCache {
         this.cache.set(applicationYamlUri, result);
         return jsonSchema;
       }, (err) => {
-        console.error(`Error while consumming '${MicroProfileLS.JSON_SCHEMA_FOR_PROJECT_INFO_REQUEST}' request: ${err.message}`);
+        console.error(`Error while consuming '${MicroProfileLS.JSON_SCHEMA_FOR_PROJECT_INFO_REQUEST}' request: ${err.message}`);
       });
   }
 
@@ -123,7 +123,7 @@ export async function registerYamlSchemaSupport(): Promise<YamlSchemaCache | und
 }
 
 // find redhat.vscode-yaml extension and try to activate it to get the yaml contributor
-// this function should only be called once when vscode-quarkus activates
+// this function should only be called once when vscode-microprofile activates
 async function activateYamlExtension(): Promise<{ registerContributor: YamlSchemaContributor } | undefined> {
   const ext = vscode.extensions.getExtension(VSCODE_YAML_EXTENSION_ID);
   const isApplicationYamlOpened: boolean = isEditorApplicationYaml(vscode.window.activeTextEditor);

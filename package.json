@@ -8,7 +8,7 @@
   "publisher": "redhat",
   "preview": true,
   "license": "Apache-2.0",
-  "bugs": "https://github.com/redhat-developer/vscode-quarkus/issues",
+  "bugs": "TODO",
   "engines": {
     "vscode": "^1.37.0"
   },
@@ -22,11 +22,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/redhat-developer/vscode-quarkus"
+    "url": "TODO"
   },
   "keywords": [
     "java",
-    "quarkus",
     "maven",
     "starter"
   ],
@@ -79,7 +78,7 @@
       }
     ],
     "configuration": {
-      "title": "Quarkus Tools",
+      "title": "MicroProfile Tools",
       "properties": {
         "microprofile.tools.trace.server": {
           "type": "string",
@@ -89,7 +88,7 @@
             "verbose"
           ],
           "default": "off",
-          "description": "Traces the communication between VS Code and the Quarkus language server.",
+          "description": "Traces the communication between VS Code and the MicroProfile language server.",
           "scope": "window"
         },
         "microprofile.tools.alwaysShowWelcomePage": {
@@ -106,13 +105,13 @@
         "microprofile.tools.symbols.showAsTree": {
           "type": "boolean",
           "default": true,
-          "description": "Show Quarkus properties as tree.",
+          "description": "Show MicroProfile properties as tree.",
           "scope": "window"
         },
         "microprofile.tools.validation.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Enables Quarkus validation",
+          "description": "Enables MicroProfile validation",
           "scope": "window"
         },
         "microprofile.tools.validation.duplicate.severity": {
@@ -123,7 +122,7 @@
             "error"
           ],
           "default": "warning",
-          "markdownDescription": "Validation severity for duplicate properties for Quarkus/MicroProfile `*.properties` files.",
+          "markdownDescription": "Validation severity for duplicate properties for MicroProfile `*.properties` files.",
           "scope": "window"
         },
         "microprofile.tools.validation.required.severity": {
@@ -134,7 +133,7 @@
             "error"
           ],
           "default": "none",
-          "markdownDescription": "Validation severity for required properties for Quarkus/MicroProfile `*.properties` files.",
+          "markdownDescription": "Validation severity for required properties for MicroProfile `*.properties` files.",
           "scope": "window"
         },
         "microprofile.tools.validation.unknown.severity": {
@@ -145,7 +144,7 @@
             "error"
           ],
           "default": "warning",
-          "markdownDescription": "Validation severity for unknown properties for Quarkus/MicroProfile `*.properties` files.",
+          "markdownDescription": "Validation severity for unknown properties for MicroProfile `*.properties` files.",
           "scope": "window"
         },
         "microprofile.tools.validation.syntax.severity": {
@@ -156,7 +155,7 @@
             "error"
           ],
           "default": "error",
-          "markdownDescription": "Validation severity for property syntax checking for Quarkus/MicroProfile `*.properties` files",
+          "markdownDescription": "Validation severity for property syntax checking for MicroProfile `*.properties` files",
           "scope": "window"
         },
         "microprofile.tools.validation.value.severity": {
@@ -167,7 +166,7 @@
             "error"
           ],
           "default": "error",
-          "markdownDescription": "Validation severity for property values for Quarkus/MicroProfile `*.properties` files.",
+          "markdownDescription": "Validation severity for property values for MicroProfile `*.properties` files.",
           "scope": "window"
         },
         "microprofile.tools.validation.unknown.excluded": {
@@ -179,7 +178,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Array of properties to ignore for unknown Quarkus properties validation. Patterns can be used ('*' = any string, '?' = any character)",
+          "description": "Array of properties to ignore for unknown MicroProfile properties validation. Patterns can be used ('*' = any string, '?' = any character)",
           "scope": "window"
         },
         "microprofile.tools.codeLens.urlCodeLensEnabled": {

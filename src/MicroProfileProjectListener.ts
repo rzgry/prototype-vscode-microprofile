@@ -53,7 +53,7 @@ export class MicroProfileProjectListener {
   }
 
   /**
-   * Updates the `quarkusProjectsCache` and `microprofileProjectExists` context
+   * Updates the `microprofileProjectsCache` and `microprofileProjectExists` context
    */
   public async updateCacheAndContext(): Promise<void> {
     this.microprofileProjectsCache = await getWorkspaceProjectLabels(ProjectLabel.MicroProfile);
@@ -61,11 +61,11 @@ export class MicroProfileProjectListener {
   }
 
   /**
-   * Sets the `quarkusProjectExists` context to `true` if current workspace
-   * contains a Quarkus project. Sets to `false` otherwise.
+   * Sets the `microprofileProjectExists` context to `true` if current workspace
+   * contains a MicroProfile project. Sets to `false` otherwise.
    */
   private async setMicroProfileProjectExistsContext(value: boolean): Promise<void> {
-    await commands.executeCommand('setContext', 'quarkusProjectExists', value);
+    await commands.executeCommand('setContext', 'microprofileProjectExists', value);
   }
 }
 

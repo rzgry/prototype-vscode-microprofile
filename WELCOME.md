@@ -1,5 +1,5 @@
-# Quarkus Tools for Visual Studio Code
-This extension provides tools to get you up and running with Quarkus
+# MicroProfile Tools for Visual Studio Code
+This extension provides tools to get you up and running with MicroProfile
 application development in Visual Studio Code.
 
 Maven 3.5.3+ supported

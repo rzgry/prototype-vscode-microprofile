@@ -18,7 +18,7 @@ import * as requirements from './languageServer/requirements';
 import { VSCodeCommands, MicroProfileLS } from './definitions/constants';
 import { DidChangeConfigurationNotification, LanguageClientOptions, LanguageClient } from 'vscode-languageclient';
 import { ExtensionContext, commands, window, workspace } from 'vscode';
-import microprofileProjectListener from './QuarkusProjectListener';
+import microprofileProjectListener from './MicroProfileProjectListener';
 import { prepareExecutable } from './languageServer/javaServerStarter';
 import { WelcomeWebview } from './webviews/WelcomeWebview';
 import { MicroProfileConfig } from './MicroProfileConfig';
@@ -162,7 +162,7 @@ function connectToLS(context: ExtensionContext) {
       };
       settings = defaultValue;
     } else {
-      const x = JSON.stringify(configMicroProfile); // configQuarkus is not a JSON type
+      const x = JSON.stringify(configMicroProfile); // config microprofile is not a JSON type
       settings = { microprofile: JSON.parse(x) };
     }
 
