@@ -8,7 +8,7 @@ import { Uri, workspace } from 'vscode';
 const expandHomeDir = require('expand-home-dir');
 const findJavaHome = require('find-java-home');
 const isWindows = process.platform.indexOf('win') === 0;
-const JAVA_FILENAME = 'java' + (isWindows?'.exe': '');
+const JAVA_FILENAME = 'java' + (isWindows ? '.exe' : '');
 
 export interface RequirementsData {
     java_home: string;
@@ -25,13 +25,13 @@ export interface RequirementsData {
 export async function resolveRequirements(): Promise<RequirementsData> {
     const javaHome = await checkJavaRuntime();
     const javaVersion = await checkJavaVersion(javaHome);
-    return Promise.resolve({ java_home: javaHome, java_version: javaVersion});
+    return Promise.resolve({ java_home: javaHome, java_version: javaVersion });
 }
 
 function checkJavaRuntime(): Promise<string> {
     return new Promise((resolve, reject) => {
         let source: string;
-        let javaHome: string|undefined = readJavaHomeConfig();
+        let javaHome: string | undefined = readJavaHomeConfig();
 
         if (javaHome) {
             source = 'The java.home variable defined in VS Code settings';
@@ -48,9 +48,9 @@ function checkJavaRuntime(): Promise<string> {
         if (javaHome) {
             javaHome = expandHomeDir(javaHome);
             if (!fs.existsSync(javaHome)) {
-                openJDKDownload(reject, source+' points to a missing folder');
+                openJDKDownload(reject, source + ' points to a missing folder');
             } else if (!fs.existsSync(path.resolve(javaHome as string, 'bin', JAVA_FILENAME))) {
-                openJDKDownload(reject, source+ ' does not point to a Java runtime.');
+                openJDKDownload(reject, source + ' does not point to a Java runtime.');
             }
             return resolve(javaHome);
         }
@@ -66,7 +66,7 @@ function checkJavaRuntime(): Promise<string> {
     });
 }
 
-function readJavaHomeConfig(): string|undefined {
+function readJavaHomeConfig(): string | undefined {
     const config = workspace.getConfiguration();
     return config.get<string>('java.home');
 }
