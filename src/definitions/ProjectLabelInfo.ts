@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 import { commands } from "vscode";
-import { BuildSupport } from "../buildSupport/BuildSupport";
-import { GradleBuildSupport } from "../buildSupport/GradleBuildSupport";
-import { MavenBuildSupport } from "../buildSupport/MavenBuildSupport";
 import { WORKSPACE_LABELS_COMMAND_ID } from "./constants";
 
 export class ProjectLabelInfo {
@@ -25,16 +22,6 @@ export class ProjectLabelInfo {
   constructor(uri: string, labels: ProjectLabel[]) {
     this.uri = uri;
     this.labels = labels;
-  }
-
-  public getBuildSupport(): BuildSupport | undefined {
-    if (this.isGradleProject()) {
-      return new GradleBuildSupport();
-    }
-    if (this.isMavenProject()) {
-      return new MavenBuildSupport();
-    }
-    return undefined;
   }
 
   public isMavenProject(): boolean {
