@@ -25,7 +25,7 @@ export interface RequirementsData {
 export async function resolveRequirements(): Promise<RequirementsData> {
     const javaHome = await checkJavaRuntime();
     const javaVersion = await checkJavaVersion(javaHome);
-    return Promise.resolve({ java_home: javaHome, java_version: javaVersion });
+    return { java_home: javaHome, java_version: javaVersion };
 }
 
 function checkJavaRuntime(): Promise<string> {

@@ -20,15 +20,12 @@ import { DidChangeConfigurationNotification, LanguageClientOptions, LanguageClie
 import { ExtensionContext, commands, window, workspace } from 'vscode';
 import microprofileProjectListener from './MicroProfileProjectListener';
 import { prepareExecutable } from './languageServer/javaServerStarter';
-import { WelcomeWebview } from './webviews/WelcomeWebview';
-import { MicroProfileConfig } from './MicroProfileConfig';
 import { registerConfigurationUpdateCommand, registerOpenURICommand, CommandKind } from './lsp-commands';
 import { registerYamlSchemaSupport, MicroProfilePropertiesChangeEvent } from './yaml/YamlSchema';
 
 let languageClient: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  displayWelcomePageIfNeeded(context);
   microprofileProjectListener.updateCacheAndContext();
 
   context.subscriptions.push(microprofileProjectListener.getMicroProfileProjectListener());
@@ -82,20 +79,8 @@ export function activate(context: ExtensionContext) {
 export function deactivate() {
 }
 
-function displayWelcomePageIfNeeded(context: ExtensionContext): void {
-  if (MicroProfileConfig.getAlwaysShowWelcomePage()) {
-    WelcomeWebview.createOrShow(context);
-  }
-}
 
 function registerVSCodeCommands(context: ExtensionContext) {
-
-  /**
-   * Command for displaying welcome page
-   */
-  context.subscriptions.push(commands.registerCommand(VSCodeCommands.MICROPROFILE_WELCOME, () => {
-    WelcomeWebview.createOrShow(context);
-  }));
 
   /**
    * Register standard LSP commands which are referenced by the MicroProfile LS

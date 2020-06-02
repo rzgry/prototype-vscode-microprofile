@@ -26,11 +26,11 @@
   },
   "keywords": [
     "java",
+    "MicroProfile",
     "maven",
     "starter"
   ],
   "activationEvents": [
-    "onCommand:microprofileTools.welcome",
     "workspaceContains:**/src/main/resources/application.properties",
     "workspaceContains:**src/main/resources/META-INF/microprofile-config.properties",
     "workspaceContains:**/src/main/resources/application.yaml",
@@ -71,12 +71,7 @@
         "configuration": "./language-support/properties-support/language-configuration.json"
       }
     ],
-    "commands": [
-      {
-        "command": "microprofileTools.welcome",
-        "title": "MicroProfile Tools: Welcome"
-      }
-    ],
+    "commands": [],
     "configuration": {
       "title": "MicroProfile Tools",
       "properties": {
@@ -90,11 +85,6 @@
           "default": "off",
           "description": "Traces the communication between VS Code and the MicroProfile language server.",
           "scope": "window"
-        },
-        "microprofile.tools.alwaysShowWelcomePage": {
-          "type": "boolean",
-          "default": true,
-          "description": "Determines whether to show the welcome page on extension startup."
         },
         "microprofile.tools.formatting.surroundEqualsWithSpaces": {
           "type": "boolean",
