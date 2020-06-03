@@ -74,7 +74,6 @@ export function deactivate() {
 }
 
 function registerVSCodeCommands(context: ExtensionContext) {
-
   /**
    * Register standard LSP commands which are referenced by the MicroProfile LS
    */
