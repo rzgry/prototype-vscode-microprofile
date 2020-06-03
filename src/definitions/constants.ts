@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-// VSCode MicroProfile Tools commands
-export namespace VSCodeCommands {
-  export const MICROPROFILE_WELCOME = 'microprofileTools.welcome';
-}
-
 // MicroProfile language server request and notifications
 export namespace MicroProfileLS {
   export const PROJECT_INFO_REQUEST = 'microprofile/projectInfo';

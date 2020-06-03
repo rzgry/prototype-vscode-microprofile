@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { RelativePattern, Uri, WorkspaceFolder, workspace } from "vscode";
-import { ProjectLabel, ProjectLabelInfo } from "../definitions/ProjectLabelInfo";
 
 export async function getFilePathsFromWorkspace(workspaceFolder: WorkspaceFolder, glob: string): Promise<Uri[]> {
   return await getFilePathsFromFolder(workspaceFolder.uri.fsPath, glob);
@@ -22,18 +21,4 @@ export async function getFilePathsFromWorkspace(workspaceFolder: WorkspaceFolder
 
 export async function getFilePathsFromFolder(folderPath: string, glob: string): Promise<Uri[]> {
   return await workspace.findFiles(new RelativePattern(folderPath, glob));
-}
-
-/**
- * Returns an array of `ProjectTypeInfo` containing information for each project
- * in the current workspace
- *
- * @param projectLabel optionally specify what project label to retrieve
- */
-export async function getWorkspaceProjectLabels(projectLabel?: ProjectLabel): Promise<ProjectLabelInfo[]> {
-  const result: ProjectLabelInfo[] = await ProjectLabelInfo.getWorkspaceProjectLabelInfo();
-  if (!projectLabel) return result;
-  return result.filter((projectLabelInfo: ProjectLabelInfo) => {
-    return projectLabelInfo.labels.includes(projectLabel);
-  });
 }

@@ -17,10 +17,10 @@
 import { ConfigurationTarget, Disposable, commands, workspace, Uri } from 'vscode';
 
 export namespace CommandKind {
-  export const COMMAND_REFERENCES = 'quarkus.command.references';
-  export const COMMAND_IMPLEMENTATIONS = 'quarkus.command.implementations';
-  export const COMMAND_OPEN_URI = 'quarkus.command.open.uri';
-  export const COMMAND_CONFIGURATION_UPDATE = 'quarkus.command.configuration.update';
+  export const COMMAND_REFERENCES = 'microprofile.command.references';
+  export const COMMAND_IMPLEMENTATIONS = 'microprofile.command.implementations';
+  export const COMMAND_OPEN_URI = 'microprofile.command.open.uri';
+  export const COMMAND_CONFIGURATION_UPDATE = 'microprofile.command.configuration.update';
 }
 
 /**
@@ -31,7 +31,7 @@ export function registerConfigurationUpdateCommand(): Disposable {
 }
 
 /**
- * Registers the `quarkus.command.open.uri` command.
+ * Registers the `microprofile.command.open.uri` command.
  * This command gives the capability to open the given uri of the command.
  */
 export function registerOpenURICommand(): Disposable {

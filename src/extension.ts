@@ -15,10 +15,9 @@
  */
 import * as requirements from './languageServer/requirements';
 
-import { VSCodeCommands, MicroProfileLS } from './definitions/constants';
+import { MicroProfileLS } from './definitions/constants';
 import { DidChangeConfigurationNotification, LanguageClientOptions, LanguageClient } from 'vscode-languageclient';
 import { ExtensionContext, commands, window, workspace } from 'vscode';
-import microprofileProjectListener from './MicroProfileProjectListener';
 import { prepareExecutable } from './languageServer/javaServerStarter';
 import { registerConfigurationUpdateCommand, registerOpenURICommand, CommandKind } from './lsp-commands';
 import { registerYamlSchemaSupport, MicroProfilePropertiesChangeEvent } from './yaml/YamlSchema';
@@ -26,10 +25,6 @@ import { registerYamlSchemaSupport, MicroProfilePropertiesChangeEvent } from './
 let languageClient: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  microprofileProjectListener.updateCacheAndContext();
-
-  context.subscriptions.push(microprofileProjectListener.getMicroProfileProjectListener());
-
   /**
    * Register Yaml Schema support to manage application.yaml
    */
@@ -57,7 +52,6 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(commands.registerCommand(MicroProfileLS.PROPERTIES_CHANGED_NOTIFICATION, (event: MicroProfilePropertiesChangeEvent) => {
       languageClient.sendNotification(MicroProfileLS.PROPERTIES_CHANGED_NOTIFICATION, event);
       yamlSchemaCache.then(cache => { if (cache) cache.evict(event); });
-      microprofileProjectListener.propertiesChange(event);
     }));
   }).catch((error) => {
     window.showErrorMessage(error.message, error.label).then((selection) => {
@@ -78,7 +72,6 @@ export function activate(context: ExtensionContext) {
 
 export function deactivate() {
 }
-
 
 function registerVSCodeCommands(context: ExtensionContext) {
 
