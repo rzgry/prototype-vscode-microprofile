@@ -10,9 +10,9 @@ export function collectMicroProfileJavaExtensions(extensions: readonly vscode.Ex
     for (const extension of extensions) {
       const contributesSection = extension.packageJSON.contributes;
       if (contributesSection) {
-        const microprofileJavaExtensions = contributesSection['microprofile.javaExtensions'];
-        if (Array.isArray(microprofileJavaExtensions)) {
-          for (const microprofileJavaExtensionPath of microprofileJavaExtensions) {
+        const microprofileSection = contributesSection.microprofile;
+        if (microprofileSection && Array.isArray(microprofileSection.jarExtensions)) {
+          for (const microprofileJavaExtensionPath of microprofileSection.jarExtensions) {
             result.push(path.resolve(extension.extensionPath, microprofileJavaExtensionPath));
           }
         }

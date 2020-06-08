@@ -6,12 +6,17 @@
     "contributes": {
       "type": "object",
       "properties": {
-        "microprofile.javaExtensions": {
-          "type": "array",
-          "markdownDescription": "MicroProfile language server extensions",
-          "items": {
-            "type": "string",
-            "description": "Relative path to a MicroProfile language server extension JAR file"
+        "microprofile": {
+          "type": "object",
+          "properties": {
+            "jarExtensions": {
+              "type": "array",
+              "markdownDescription": "MicroProfile language server extensions",
+              "items": {
+                "type": "string",
+                "description": "Relative path to a MicroProfile language server extension JAR file"
+              }
+            }
           }
         }
       }

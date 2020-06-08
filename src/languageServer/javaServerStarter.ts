@@ -1,9 +1,9 @@
-import * as os from 'os';
 import * as path from 'path';
 import { workspace } from 'vscode';
 import { Executable, ExecutableOptions } from 'vscode-languageclient';
 import { RequirementsData } from './requirements';
-const glob = require('glob');
+import * as osUtils from '../utils/osUtils';
+import * as glob from 'glob';
 
 const DEBUG = startedInDebugMode();
 const DEBUG_PORT = 1064;
@@ -30,7 +30,7 @@ function prepareParams(microprofileJavaExtensions: string[]): string[] {
   }
 
   const vmargs = workspace.getConfiguration("xml").get("server.vmargs", '');
-  if (os.platform() === 'win32') {
+  if (osUtils.isWindows()) {
     const watchParentProcess = '-DwatchParentProcess=';
     if (vmargs.indexOf(watchParentProcess) < 0) {
       params.push(watchParentProcess + 'false');
@@ -42,7 +42,7 @@ function prepareParams(microprofileJavaExtensions: string[]): string[] {
   if (microprofileServerFound.length) {
     let mpJavaExtensionsClasspath = '';
     if (microprofileJavaExtensions.length > 0) {
-      const classpathSeperator = os.platform() === 'win32' ? ';' : ':';
+      const classpathSeperator = osUtils.isWindows() ? ';' : ':';
       mpJavaExtensionsClasspath = classpathSeperator + microprofileJavaExtensions.join(classpathSeperator);
     }
     params.push('-cp');

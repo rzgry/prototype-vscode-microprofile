@@ -4,11 +4,11 @@ import * as cp from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Uri, workspace } from 'vscode';
+import * as osUtils from '../utils/osUtils';
 
 const expandHomeDir = require('expand-home-dir');
 const findJavaHome = require('find-java-home');
-const isWindows = process.platform.indexOf('win') === 0;
-const JAVA_FILENAME = 'java' + (isWindows ? '.exe' : '');
+const JAVA_FILENAME = 'java' + (osUtils.isWindows() ? '.exe' : '');
 
 export interface RequirementsData {
     java_home: string;
@@ -109,7 +109,7 @@ export function parseMajorVersion(content: string): number {
 
 function openJDKDownload(reject: any, cause: string) {
     let jdkUrl = 'https://developers.redhat.com/products/openjdk/download/?sc_cid=701f2000000RWTnAAO';
-    if (process.platform === 'darwin') {
+    if (osUtils.isMac()) {
         jdkUrl = 'http://www.oracle.com/technetwork/java/javase/downloads/index.html';
     }
     reject({
