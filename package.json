@@ -48,6 +48,12 @@
     "javaExtensions": [
       "./jars/com.redhat.microprofile.jdt.core.jar"
     ],
+    "jsonValidation": [
+      {
+        "fileMatch": "package.json",
+        "url": "./schemas/package.schema.json"
+      }
+    ],
     "languages": [
       {
         "id": "microprofile-properties",
