@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+ export namespace Commands {
+  export const RELOAD_WINDOW = 'workbench.action.reloadWindow';
+ }
+
 // MicroProfile language server request and notifications
 export namespace MicroProfileLS {
   export const PROJECT_INFO_REQUEST = 'microprofile/projectInfo';

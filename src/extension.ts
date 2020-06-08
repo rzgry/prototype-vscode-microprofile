@@ -17,10 +17,11 @@ import * as requirements from './languageServer/requirements';
 
 import { MicroProfileLS } from './definitions/constants';
 import { DidChangeConfigurationNotification, LanguageClientOptions, LanguageClient } from 'vscode-languageclient';
-import { ExtensionContext, commands, window, workspace } from 'vscode';
+import { ExtensionContext, commands, window, workspace, extensions } from 'vscode';
 import { prepareExecutable } from './languageServer/javaServerStarter';
 import { registerConfigurationUpdateCommand, registerOpenURICommand, CommandKind } from './lsp-commands';
 import { registerYamlSchemaSupport, MicroProfilePropertiesChangeEvent } from './yaml/YamlSchema';
+import { collectMicroProfileJavaExtensions, handleExtensionChange } from './languageServer/plugin';
 
 let languageClient: LanguageClient;
 
@@ -116,9 +117,18 @@ function connectToLS(context: ExtensionContext) {
       }
     };
 
-    const serverOptions = prepareExecutable(requirements);
+    const microprofileJavaExtensions = collectMicroProfileJavaExtensions(extensions.all);
+    const serverOptions = prepareExecutable(requirements, microprofileJavaExtensions);
     languageClient = new LanguageClient('microprofile.tools', 'MicroProfile Tools', serverOptions, clientOptions);
     context.subscriptions.push(languageClient.start());
+
+    if (extensions.onDidChange) {// Theia doesn't support this API yet
+      context.subscriptions.push(extensions.onDidChange(() => {
+        // if extensions that contribute mp java extensions change we need to reload the window
+        handleExtensionChange(extensions.all);
+      }));
+    }
+
     return languageClient.onReady();
   });
 
