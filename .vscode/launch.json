@@ -4,7 +4,8 @@
 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
 	"version": "0.2.0",
-	"configurations": [{
+	"configurations": [
+		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
@@ -16,6 +17,22 @@
 				"${workspaceFolder}/dist/**/*.js"
 			],
 			"preLaunchTask": "npm: watch"
+		},
+		{
+			"name": "Run Extension & Wait for remote debugger",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}"
+			],
+			"outFiles": [
+				"${workspaceRoot}/dist/**/*.js"
+			],
+			"preLaunchTask": "npm: watch",
+			"env": {
+				"SUSPEND_SERVER": "true"
+			}
 		},
 		{
 			"name": "Extension Tests",
@@ -30,13 +47,13 @@
 				"${workspaceFolder}/out/test/vscodeTest/**/*.js"
 			],
 			"preLaunchTask": "npm: watch"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "VS Code UI Extension Tests",
-      "program": "${workspaceFolder}/out/test/vscodeUiTest/index.js",
-      "preLaunchTask": "npm: test-compile"
-    }
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "VS Code UI Extension Tests",
+			"program": "${workspaceFolder}/out/test/vscodeUiTest/index.js",
+			"preLaunchTask": "npm: test-compile"
+		}
 	]
 }

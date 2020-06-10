@@ -24,12 +24,15 @@ export function prepareExecutable(requirements: RequirementsData): Executable {
 function prepareParams(): string[] {
   const params: string[] = [];
   if (DEBUG) {
-    params.push(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${DEBUG_PORT},quiet=y`);
-    // suspend=y is the default. Use this form if you need to debug the server startup code:
-    // params.push(`-agentlib:jdwp=transport=dt_socket,server=y,address=${DEBUG_PORT}`);
+    if (process.env.SUSPEND_SERVER === 'true') {
+      // suspend=y is the default. Waits for debugger on startup to help debug the server startup code
+      params.push(`-agentlib:jdwp=transport=dt_socket,server=y,address=${DEBUG_PORT}`);
+    } else {
+      params.push(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${DEBUG_PORT},quiet=y`);
+    }
   }
 
-  const vmargs = workspace.getConfiguration("xml").get("server.vmargs", '');
+  const vmargs = workspace.getConfiguration("microprofile.tools").get("server.vmargs", '');
   if (os.platform() === 'win32') {
     const watchParentProcess = '-DwatchParentProcess=';
     if (vmargs.indexOf(watchParentProcess) < 0) {
@@ -49,12 +52,17 @@ function prepareParams(): string[] {
   return params;
 }
 
-function startedInDebugMode(): boolean {
-  const args = (process as any).execArgv;
+function hasDebugFlag(args: string[]): boolean {
   if (args) {
-    return args.some((arg: any) => /^--debug=?/.test(arg) || /^--debug-brk=?/.test(arg) || /^--inspect-brk=?/.test(arg));
+    // See https://nodejs.org/en/docs/guides/debugging-getting-started/
+    return args.some( arg => /^--inspect/.test(arg) || /^--debug/.test(arg));
   }
   return false;
+}
+
+function startedInDebugMode(): boolean {
+  const args: string[] = process.execArgv;
+  return hasDebugFlag(args);
 }
 
 // exported for tests
