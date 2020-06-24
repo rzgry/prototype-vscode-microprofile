@@ -46,16 +46,12 @@ Due to [this issue](https://github.com/redhat-developer/quarkus-ls/issues/203), 
 To avoid having this error, you must configure the following in `settings.json`:
 
 ```json
-"quarkus.tools.validation.unknown.excluded": [
+"microprofile.tools.validation.unknown.excluded": [
     "*/mp-rest/providers/*/priority"
 ]
 ```
 
 This settings is set by default.
-
-## Articles
-
-TODO
 
 ## Contributing
 
