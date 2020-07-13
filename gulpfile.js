@@ -15,10 +15,10 @@ const gulp = require('gulp');
 const rename = require('gulp-rename');
 const cp = require('child_process');
 
-const microprofileServerName = 'com.redhat.microprofile.ls-uber.jar';
-const extensions = ['com.redhat.microprofile.jdt.core'];
-const microprofileServerDir = '../quarkus-ls/microprofile.ls/com.redhat.microprofile.ls';
-const extensionDir = '../quarkus-ls/microprofile.jdt';
+const microprofileServerName = 'org.eclipse.lsp4mp.ls-uber.jar';
+const extensions = ['org.eclipse.lsp4mp.jdt.core'];
+const microprofileServerDir = '../lsp4mp/microprofile.ls/org.eclipse.lsp4mp.ls';
+const extensionDir = '../lsp4mp/microprofile.jdt';
 
 
 gulp.task('buildServer', (done) => {

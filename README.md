@@ -4,8 +4,8 @@
 
 This Visual Studio Code extension provides support for [MicroProfile](https://github.com/eclipse/microprofile) development via:
 
- * a [MicroProfile language server](https://github.com/redhat-developer/quarkus-ls/tree/master/microprofile.ls).
- * a [MicroProfile jdt.ls extension](https://github.com/redhat-developer/quarkus-ls/tree/master/microprofile.jdt/com.redhat.microprofile.jdt.core).
+ * a [MicroProfile language server](https://github.com/eclipse/lsp4mp/tree/master/microprofile.ls).
+ * a [MicroProfile jdt.ls extension](https://github.com/eclipse/lsp4mp/tree/master/microprofile.jdt).
 
 ## MicroProfile `properties` Features
 
