@@ -13,8 +13,8 @@
     "vscode": "^1.37.0"
   },
   "galleryBanner": {
-    "color": "#d8ebff",
-    "theme": "light"
+    "color": "#1d2f42",
+    "theme": "dark"
   },
   "categories": [
     "Programming Languages",
@@ -211,10 +211,7 @@
     "tslint": "./node_modules/.bin/tslint -p .",
     "build": "./node_modules/.bin/gulp build",
     "build-server": "./node_modules/.bin/gulp buildServer",
-    "build-ext": "./node_modules/.bin/gulp buildExtension",
-    "test-ui": "npm run test-compile && npm run test-ui-run",
-    "test-ui-run": "extest setup-and-run 'out/test/vscodeUiTest/suite/*.js' -u -c 1.42.1",
-    "test-all": "npm test && npm run test-ui-run"
+    "build-ext": "./node_modules/.bin/gulp buildExtension"
   },
   "resolutions": {
     "minimist": "^1.2.5"
@@ -237,7 +234,6 @@
     "tslint": "^5.20.1",
     "typescript": "^3.7.2",
     "typescript-tslint-plugin": "^0.3.1",
-    "vscode-extension-tester": "^2.3.0",
     "vscode-test": "^1.2.3",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"

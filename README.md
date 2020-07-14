@@ -9,7 +9,7 @@ This Visual Studio Code extension provides support for [MicroProfile](https://gi
 
 ## MicroProfile `properties` Features
 
-In `microprofile-config.properties` and `application.properties` files, you will benefit with:
+In `microprofile-config.properties` files, you will benefit with:
 
   * Completion support for MicroProfile properties
   * Hover support for MicroProfile properties
@@ -63,4 +63,5 @@ TODO
 
 ## License
 
-TODO
+Apache License 2.0.
+See [LICENSE](LICENSE) file.

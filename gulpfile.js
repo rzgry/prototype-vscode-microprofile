@@ -16,9 +16,9 @@ const rename = require('gulp-rename');
 const cp = require('child_process');
 
 const microprofileServerName = 'org.eclipse.lsp4mp.ls-uber.jar';
-const extensions = ['org.eclipse.lsp4mp.jdt.core'];
 const microprofileServerDir = '../lsp4mp/microprofile.ls/org.eclipse.lsp4mp.ls';
-const extensionDir = '../lsp4mp/microprofile.jdt';
+const microprofileJDTextension = 'org.eclipse.lsp4mp.jdt.core';
+const jdtExtensionDir = '../lsp4mp/microprofile.jdt';
 
 
 gulp.task('buildServer', (done) => {
@@ -29,12 +29,10 @@ gulp.task('buildServer', (done) => {
 });
 
 gulp.task('buildExtension', (done) => {
-  cp.execSync(mvnw() + ' -pl "' + extensions.join(',') + '" clean verify -DskipTests', { cwd: extensionDir, stdio: 'inherit' });
-  extensions.forEach(extension => {
-    gulp.src(extensionDir + '/' + extension + '/target/' + extension + '-*.jar')
-      .pipe(rename(extension + '.jar'))
-      .pipe(gulp.dest('./jars'));
-  });
+  cp.execSync(mvnw() + ' -pl "' + microprofileJDTextension + '" clean verify -DskipTests', { cwd: jdtExtensionDir, stdio: 'inherit' });
+  gulp.src(jdtExtensionDir + '/' + microprofileJDTextension + '/target/' + microprofileJDTextension + '-*.jar')
+    .pipe(rename(microprofileJDTextension + '.jar'))
+    .pipe(gulp.dest('./jars'));
   done();
 });
 

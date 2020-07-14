@@ -124,25 +124,15 @@ function connectToLS(context: ExtensionContext) {
 
   /**
    * Returns a json object with key 'microprofile' and a json object value that
-   * holds all microprofile. settings.
-   *
-   * Returns: {
-   *            'microprofile': {...}
-   *          }
+   * holds all microprofile settings.
    */
-  function getVSCodeMicroProfileSettings(): JSON {
+  function getVSCodeMicroProfileSettings(): { microprofile: any } {
+    const defaultMicroProfileSettings = {};
     const configMicroProfile = workspace.getConfiguration().get('microprofile');
-    let settings;
-    if (!configMicroProfile) { // Set default preferences if not provided
-      const defaultValue = {
-        microprofile: {}
-      };
-      settings = defaultValue;
-    } else {
-      const x = JSON.stringify(configMicroProfile); // config microprofile is not a JSON type
-      settings = { microprofile: JSON.parse(x) };
-    }
+    const microprofileSettings = configMicroProfile ? configMicroProfile : defaultMicroProfileSettings;
 
-    return settings;
+    return {
+      microprofile: microprofileSettings,
+    };
   }
 }
